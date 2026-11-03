@@ -41,11 +41,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
  <section id="home" class="card">
   <span class="pill">ویژه پایه‌های هفتم، هشتم و نهم</span>
   <h2 style="margin-top:12px">به سامانه هدایت استعدادهای قرآنی خوش آمدید</h2>
-  <p>با پاسخ به پرسش‌های علاقه‌سنجی، سه رشته مناسب خودت را بشناس و در پایان فقط یک رشته را برای شرکت در مسابقات انتخاب کن.</p>
+  <p>با پاسخ به پرسش‌های علاقه‌سنجی، سه رشته مناسب خودت را بشناس و در پایان می‌توانی حداکثر چهار رشته را برای شرکت در مسابقات انتخاب کنی.</p>
   <div class="grid">
    <div class="stat"><b>۱۰ رشته</b><span class="muted">در دو شاخه آوایی و پژوهشی</span></div>
    <div class="stat"><b>بدون محدودیت</b><span class="muted">آزمون زمان‌دار نیست</span></div>
-   <div class="stat"><b>یک انتخاب</b><span class="muted">ثبت نهایی فقط برای یک رشته</span></div>
+   <div class="stat"><b>تا ۴ رشته</b><span class="muted">امکان انتخاب چند رشته</span></div>
   </div>
   <div class="actions">
    <button class="btn primary" onclick="show('register')">شروع و ثبت اطلاعات دانش‌آموز</button>
@@ -73,7 +73,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
 
  <section id="results" class="card hidden">
   <h2>سه رشته پیشنهادی شما</h2>
-  <p class="muted">این پیشنهادها بر اساس پاسخ‌های ثبت‌شده تهیه شده‌اند. در پایان فقط یک رشته را انتخاب می‌کنید.</p>
+  <p class="muted">این پیشنهادها بر اساس پاسخ‌های ثبت‌شده تهیه شده‌اند. در پایان می‌توانید از یک تا چهار رشته انتخاب کنید.</p>
   <div id="suggestions"></div>
   <label>رشته‌های موردنظر خود را انتخاب کنید (حداکثر ۴ رشته)</label>
   <div id="finalChoices" class="grid"></div>
@@ -83,9 +83,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
  </section>
 
  <section id="done" class="card hidden">
-  <h2>ثبت انتخاب شما انجام شد</h2>
+  <h2>ثبت انتخاب‌های شما انجام شد</h2>
   <p id="doneText"></p>
-  <div class="notice">انتخاب شما ثبت شده است. برای اصلاح اطلاعات یا رشته انتخابی، به معاون پرورشی مدرسه مراجعه کنید.</div>
+  <div class="notice">انتخاب شما ثبت شده است. برای اصلاح اطلاعات یا رشته‌های انتخابی، به معاون پرورشی مدرسه مراجعه کنید.</div>
   <div class="actions"><button class="btn outline" onclick="show('home')">بازگشت به صفحه اصلی</button></div>
  </section>
 
@@ -109,10 +109,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
   <div class="actions"><button id="stopBtn" class="btn danger" onclick="toggleExam()">توقف آزمون</button><button class="btn outline" onclick="exportCsv()">دریافت فایل CSV</button><button class="btn danger" onclick="clearResults()">پاک کردن نتایج</button></div>
   <h3 style="margin-top:22px">آمار رشته‌ها</h3><div id="stats" class="grid"></div>
   <h3 style="margin-top:22px">فهرست ثبت‌نام‌ها</h3>
-  <div class="table-wrap"><table><thead><tr><th>نام</th><th>پایه</th><th>کلاس</th><th>رشته نهایی</th><th>عملیات</th></tr></thead><tbody id="studentRows"></tbody></table></div>
+  <div class="table-wrap"><table><thead><tr><th>نام</th><th>پایه</th><th>کلاس</th><th>رشته‌های انتخابی</th><th>عملیات</th></tr></thead><tbody id="studentRows"></tbody></table></div>
  </section>
- <footer>مدرسه شهید توپچی | مسابقات قرآن، عترت و نماز</footer>
-</main>
+ </main>
 <script>
 const SUPABASE_URL = 'https://tpubxwisejotqlwoxtnd.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Vq9HpYgVhljXt34G9XS3MA_uaYvAEBY';
@@ -160,16 +159,27 @@ function showResults(){
  if(Object.keys(answers).length!==fields.length){alert('لطفاً به همه پرسش‌ها پاسخ بدهید.');return}
  currentSuggestions=scoreAnswers().slice(0,3);
  document.getElementById('suggestions').innerHTML=currentSuggestions.map((s,i)=>`<div class="stat" style="margin:8px 0"><b>${['اولویت اول','اولویت دوم','اولویت سوم'][i]}</b>${s} <span class="pill">${categories[s]}</span></div>`).join('');
- document.getElementById('finalChoice').innerHTML='<option value="">انتخاب یک رشته</option>'+[...currentSuggestions,...Object.keys(categories).filter(x=>!currentSuggestions.includes(x))].map(s=>`<option>${s}</option>`).join('');
+ const allChoices=[...currentSuggestions,...Object.keys(categories).filter(x=>!currentSuggestions.includes(x))];
+ document.getElementById('finalChoices').innerHTML=allChoices.map(s=>`<label class="stat" style="display:flex;align-items:center;gap:9px;margin:0"><input type="checkbox" name="finalChoice" value="${s}" style="width:auto" onchange="updateChoiceCount()"> <span>${s} <span class="pill">${categories[s]}</span></span></label>`).join('');
+ updateChoiceCount();
  show('results');
 }
+function updateChoiceCount(){
+ const selected=[...document.querySelectorAll('input[name="finalChoice"]:checked')];
+ if(selected.length>4){selected[selected.length-1].checked=false;alert('حداکثر می‌توانید ۴ رشته انتخاب کنید.');}
+ const count=document.querySelectorAll('input[name="finalChoice"]:checked').length;
+ document.getElementById('choiceCount').textContent=`${count} از ۴ رشته انتخاب شده است.`;
+}
 async function submitStudent(){
- const choice=document.getElementById('finalChoice').value;if(!choice){alert('لطفاً فقط یک رشته را انتخاب کنید.');return}
- const payload={full_name:student.name,grade:student.grade,class_name:student.className,answers:{...answers},suggestions:currentSuggestions,final_choice:choice};
+ const choices=[...document.querySelectorAll('input[name="finalChoice"]:checked')].map(x=>x.value);
+ if(choices.length===0){alert('لطفاً دست‌کم یک رشته انتخاب کنید.');return}
+ if(choices.length>4){alert('حداکثر می‌توانید ۴ رشته انتخاب کنید.');return}
+ const payload={full_name:student.name,grade:student.grade,class_name:student.className,answers:{...answers},suggestions:currentSuggestions,final_choices:choices,final_choice:choices[0]};
  const {error}=await db.from('student_submissions').insert(payload);
  if(error){if(error.code==='23505')alert('با این نام، پایه و کلاس قبلاً ثبت‌نام انجام شده است.');else if(error.code==='42501')alert('ثبت‌نام در حال حاضر مجاز نیست یا آزمون متوقف شده است.');else alert('ثبت اطلاعات انجام نشد: '+errorText(error));return}
- document.getElementById('doneText').textContent=`${student.name} عزیز، رشته «${choice}» برای شما ثبت شد.`;show('done');
+ document.getElementById('doneText').textContent=`${student.name} عزیز، رشته‌های «${choices.join('، ')}» برای شما ثبت شد.`;show('done');
 }
+
 async function adminLogin(){
  const email=document.getElementById('username').value.trim(),password=document.getElementById('password').value;
  if(!email||!password){document.getElementById('loginMessage').textContent='ایمیل و رمز عبور را وارد کنید.';return}
@@ -192,19 +202,19 @@ async function renderAdmin(){
  examActive=!!settings.exam_active;
  document.getElementById('totalCount').textContent=rec.length;document.getElementById('statusText').textContent=examActive?'فعال':'متوقف';
  document.getElementById('stopBtn').textContent=examActive?'توقف آزمون':'فعال‌سازی مجدد آزمون';document.getElementById('stopBtn').className='btn '+(examActive?'danger':'primary');
- document.getElementById('stats').innerHTML=Object.keys(categories).map(s=>`<div class="stat"><b>${rec.filter(r=>r.final_choice===s).length}</b><span>${s}</span></div>`).join('');
- document.getElementById('studentRows').innerHTML=rec.map(r=>`<tr><td>${esc(r.full_name)}</td><td>${esc(r.grade)}</td><td>${esc(r.class_name)}</td><td>${esc(r.final_choice)}</td><td><button class="btn outline" onclick="editRecord('${r.id}','${encodeURIComponent(r.final_choice)}')">اصلاح</button></td></tr>`).join('')||'<tr><td colspan="5">هنوز ثبت‌نامی ثبت نشده است.</td></tr>';
+ document.getElementById('stats').innerHTML=Object.keys(categories).map(s=>`<div class="stat"><b>${rec.filter(r=>getRecordChoices(r).includes(s)).length}</b><span>${s}</span></div>`).join('');
+ document.getElementById('studentRows').innerHTML=rec.map(r=>{const choices=getRecordChoices(r);return `<tr><td>${esc(r.full_name)}</td><td>${esc(r.grade)}</td><td>${esc(r.class_name)}</td><td>${esc(choices.join('، '))}</td><td><button class="btn outline" onclick="editRecord('${r.id}','${encodeURIComponent(choices.join('، '))}')">اصلاح</button></td></tr>`}).join('')||'<tr><td colspan="5">هنوز ثبت‌نامی ثبت نشده است.</td></tr>';
  window.adminRecords=rec;
 }
 function getRecordChoices(r){return Array.isArray(r.final_choices)&&r.final_choices.length?r.final_choices:(r.final_choice?[r.final_choice]:[])}
 async function editRecord(id,oldEncoded){
-  const old=decodeURIComponent(oldEncoded);
-  const val=prompt('یک تا چهار رشته را با «،» از هم جدا کنید. گزینه‌ها:\n'+Object.keys(categories).join('، '),old);
-  if(val===null)return;
-  const choices=[...new Set(val.split(/[،,]/).map(x=>x.trim()).filter(Boolean))];
-  if(choices.length<1||choices.length>4||choices.some(x=>!categories[x])){alert('باید بین ۱ تا ۴ رشته معتبر وارد کنید.');return}
-  const {error}=await db.from('student_submissions').update({final_choices:choices,final_choice:choices[0]}).eq('id',id);
-  if(error){alert('اصلاح انجام نشد: '+errorText(error));return}await renderAdmin()
+ const old=decodeURIComponent(oldEncoded);
+ const val=prompt('یک تا چهار رشته را با «،» از هم جدا کنید. گزینه‌ها:\n'+Object.keys(categories).join('، '),old);
+ if(val===null)return;
+ const choices=[...new Set(val.split(/[،,]/).map(x=>x.trim()).filter(Boolean))];
+ if(choices.length<1||choices.length>4||choices.some(x=>!categories[x])){alert('باید بین ۱ تا ۴ رشته معتبر وارد کنید.');return}
+ const {error}=await db.from('student_submissions').update({final_choices:choices,final_choice:choices[0]}).eq('id',id);
+ if(error){alert('اصلاح انجام نشد: '+errorText(error));return}await renderAdmin()
 }
 async function clearResults(){
  if(!confirm('هشدار: همه نتایج ثبت‌شده برای تمام دانش‌آموزان پاک خواهند شد. ادامه می‌دهید؟'))return;
@@ -220,3 +230,4 @@ db.auth.getSession().then(({data})=>{if(data.session) {document.getElementById('
 </script>
 </body>
 </html>
+ <footer>مدرسه شهید توپچی | مسابقات قرآن، عترت و نماز</footer>
