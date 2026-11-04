@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>هدایت استعدادهای قرآنی | مدرسه شهید توپچی</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--green:#123d2b;--green2:#1c6042;--gold:#d9b85f;--cream:#fbf8ef;--ink:#183528;--muted:#718078;--line:#e7e2d4;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.9}
+button,input,select{font:inherit}button{cursor:pointer;border:0}
+.top{background:linear-gradient(135deg,#0e3023,#1b6041);color:white;padding:24px 18px 42px;position:relative;overflow:hidden}
+.top:after{content:"۞";position:absolute;left:5%;top:-40px;font-size:190px;color:#ffffff0d}
+.wrap{max-width:1000px;margin:auto;padding:0 16px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border:1px solid #d9b85f;border-radius:15px;display:grid;place-items:center;color:#f0d78f;font-size:26px}
+.school{font-size:13px;color:#e7d8a8}.hero h1{font-size:clamp(25px,5vw,39px);line-height:1.5;margin:18px 0 5px;color:#f4d783}.hero p{margin:0;color:#e7eee9}
+main{margin-top:-23px;padding-bottom:50px}.card{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 8px 26px #263a2b0b;margin-bottom:16px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{padding:11px 18px;border-radius:12px;font-weight:bold;transition:.15s}.primary{background:var(--green2);color:white}.gold{background:var(--gold);color:#26351f}.outline{background:white;color:var(--green);border:1px solid #c9d6cd}.danger{background:#a83434;color:white}.muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.stat{background:#f5f7f2;border-radius:14px;padding:15px}.stat b{font-size:23px;color:var(--green2);display:block}
+h2{font-size:20px;margin:0 0 10px}h3{font-size:16px;margin:0 0 8px}
+label{display:block;font-size:14px;margin:10px 0 4px}input,select{width:100%;padding:12px;border:1px solid #d9dfd8;border-radius:11px;background:white;color:var(--ink)}
+.field{margin-bottom:10px}.hidden{display:none!important}
+.pill{display:inline-block;padding:3px 10px;border-radius:30px;background:#edf5ef;color:#24613f;font-size:12px}
+.list{padding-right:20px;margin:8px 0}.list li{margin:4px 0}
+.notice{padding:12px 14px;background:#fff8e5;border:1px solid #ead9a7;border-radius:12px;color:#6a5420;font-size:13px}
+.admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th{background:#f6f7f2}
+.table-wrap{overflow:auto}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
+.admin-tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}
+.chart-row{display:grid;grid-template-columns:minmax(115px,190px) 1fr 42px;gap:10px;align-items:center;margin:9px 0;font-size:13px}
+.chart-track{height:13px;background:#edf1ec;border-radius:20px;overflow:hidden}
+.chart-fill{height:100%;background:linear-gradient(90deg,#1c6042,#d9b85f);border-radius:20px;min-width:0}
+@media print{body{background:white}.top,footer,#home,#register,#quiz,#results,#done,#login,.admin-head,#passwordPanel,.notice,.actions,.admin-tools,.no-print{display:none!important}main{margin:0;padding:0}.card{border:0;box-shadow:none;padding:0}.table-wrap{overflow:visible}table{font-size:11px}th,td{white-space:normal;padding:6px}.print-title{display:block!important}}
+@media(max-width:600px){.card{padding:17px}.top{padding-top:18px}.actions .btn{flex:1}.admin-head .btn{width:100%}}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="wrap">
+  <div class="brand"><div class="logo">۞</div><div><div class="school">مدرسه شهید توپچی</div><strong>مسابقات قرآن، عترت و نماز</strong></div></div>
+  <div class="hero"><h1>هدایت استعدادهای قرآنی</h1><p>استعدادت را بشناس، رشته مناسب خودت را انتخاب کن.</p></div>
+ </div>
+</header>
+<main class="wrap">
+ <section id="home" class="card">
+  <span class="pill">ویژه پایه‌های هفتم، هشتم و نهم</span>
+  <h2 style="margin-top:12px">به سامانه هدایت استعدادهای قرآنی خوش آمدید</h2>
+  <p>با پاسخ به پرسش‌های علاقه‌سنجی، رشته‌های مناسب خودت را بشناس و در پایان حداکثر چهار رشته را برای شرکت در مسابقات انتخاب کن.</p>
+  <div class="grid">
+   <div class="stat"><b>۱۰ رشته</b><span class="muted">در دو شاخه آوایی و پژوهشی</span></div>
+   <div class="stat"><b>بدون محدودیت</b><span class="muted">آزمون زمان‌دار نیست</span></div>
+   <div class="stat"><b>تا ۴ رشته</b><span class="muted">امکان انتخاب حداکثر چهار رشته</span></div>
+  </div>
+  <div class="actions">
+   <button class="btn primary" onclick="show('register')">شروع و ثبت اطلاعات دانش‌آموز</button>
+   <button class="btn outline" onclick="show('login')">ورود به پنل پرورشی</button>
+  </div>
+ </section>
+
+ <section id="register" class="card hidden">
+  <h2>اطلاعات دانش‌آموز</h2>
+  <p class="muted">لطفاً اطلاعات را با دقت وارد کنید.</p>
+  <div class="grid">
+   <div class="field"><label>نام و نام خانوادگی</label><input id="studentName" placeholder="مثلاً علی رضایی"></div>
+   <div class="field"><label>پایه تحصیلی</label><select id="grade"><option value="">انتخاب پایه</option><option>هفتم</option><option>هشتم</option><option>نهم</option></select></div>
+   <div class="field"><label>کلاس</label><input id="className" placeholder="مثلاً ۷/۱"></div>
+  </div>
+  <div class="actions"><button class="btn primary" onclick="startQuiz()">ادامه به پرسش‌ها</button><button class="btn outline" onclick="show('home')">بازگشت</button></div>
+ </section>
+
+ <section id="quiz" class="card hidden">
+  <h2>پرسش‌های علاقه‌سنجی</h2>
+  <p class="muted">برای آزمون محدودیت زمانی وجود ندارد. پاسخ‌ها به شناخت علاقه شما کمک می‌کنند.</p>
+  <div id="questions"></div>
+  <div class="actions"><button class="btn primary" onclick="showResults()">مشاهده رشته‌های پیشنهادی</button><button class="btn outline" onclick="show('register')">بازگشت</button></div>
+ </section>
+
+ <section id="results" class="card hidden">
+  <h2>رشته‌های پیشنهادی شما</h2>
+  <p class="muted">پیشنهادها بر اساس پاسخ‌های ثبت‌شده مرتب شده‌اند. حداکثر چهار رشته را انتخاب کنید.</p>
+  <div id="suggestions"></div>
+  <label>رشته‌های موردنظر (حداکثر ۴ مورد)</label>
+  <div id="finalChoices" class="grid"></div>
+  <p id="choiceCount" class="muted">۰ از ۴ رشته انتخاب شده</p>
+  <div class="notice" style="margin-top:12px">پس از ثبت نهایی، دانش‌آموز امکان تغییر انتخاب خود را ندارد. اصلاح احتمالی فقط از طریق پنل معاون پرورشی انجام می‌شود.</div>
+  <div class="actions"><button class="btn gold" onclick="submitStudent()">ثبت نهایی و قطعی</button></div>
+ </section>
+
+ <section id="done" class="card hidden">
+  <h2>ثبت انتخاب شما انجام شد</h2>
+  <p id="doneText"></p>
+  <div class="notice">انتخاب شما ثبت شده است. برای اصلاح اطلاعات یا رشته انتخابی، به معاون پرورشی مدرسه مراجعه کنید.</div>
+  <div class="actions"><button class="btn outline" onclick="show('home')">بازگشت به صفحه اصلی</button></div>
+ </section>
+
+ <section id="login" class="card hidden">
+  <h2>ورود به پنل پرورشی</h2>
+  <p class="muted">این بخش ویژه مدیر و معاون پرورشی است.</p>
+  <div class="notice">ورود با همان ایمیلی انجام می‌شود که هنگام ساخت حساب مدیر در Supabase وارد کردید.</div>
+  <div class="field"><label>ایمیل مدیر</label><input id="username" type="email" autocomplete="username" placeholder="ایمیل حساب مدیر"></div>
+  <div class="field"><label>رمز عبور</label><input id="password" type="password" autocomplete="current-password" placeholder="رمز عبور"></div>
+  <div class="actions"><button class="btn primary" onclick="adminLogin()">ورود</button><button class="btn outline" onclick="show('home')">بازگشت</button></div>
+  <p id="loginMessage" class="muted"></p>
+ </section>
+
+ <section id="admin" class="card hidden">
+  <div class="admin-head"><div><h2>پنل مدیریت معاون پرورشی</h2><span class="muted">مدیریت ثبت‌نام‌ها و نتایج</span></div><div class="actions" style="margin-top:0"><button class="btn outline" onclick="togglePasswordPanel()">تغییر رمز عبور</button><button class="btn outline" onclick="logout()">خروج از پنل</button></div></div>
+  <section id="passwordPanel" class="stat hidden" style="margin-top:14px">
+   <h3>تغییر رمز عبور مدیر</h3>
+   <p class="muted">برای امنیت، ابتدا رمز فعلی را وارد کنید؛ سپس رمز جدید را دو بار بنویسید.</p>
+   <div class="grid">
+    <div class="field"><label for="currentAdminPassword">رمز عبور فعلی</label><input id="currentAdminPassword" type="password" autocomplete="current-password" placeholder="رمز فعلی"></div>
+    <div class="field"><label for="newAdminPassword">رمز عبور جدید</label><input id="newAdminPassword" type="password" autocomplete="new-password" placeholder="حداقل ۸ نویسه"></div>
+    <div class="field"><label for="confirmAdminPassword">تکرار رمز جدید</label><input id="confirmAdminPassword" type="password" autocomplete="new-password" placeholder="تکرار رمز جدید"></div>
+   </div>
+   <p id="passwordMessage" class="muted" aria-live="polite"></p>
+   <div class="actions"><button class="btn primary" onclick="changeAdminPassword()">ذخیره رمز جدید</button><button class="btn outline" onclick="togglePasswordPanel(false)">انصراف</button></div>
+  </section>
+  <div class="notice" style="margin:14px 0">اطلاعات این سامانه در پایگاه داده مرکزی ذخیره می‌شود. فقط حساب مدیر مجاز می‌تواند نتایج را مشاهده و مدیریت کند.</div>
+  <div class="grid">
+   <div class="stat"><b id="totalCount">۰</b><span class="muted">ثبت‌نام‌های ثبت‌شده در پایگاه داده</span></div>
+   <div class="stat"><b id="statusText">فعال</b><span class="muted">وضعیت آزمون در پایگاه داده</span></div>
+  </div>
+  <div class="actions"><button id="stopBtn" class="btn danger" onclick="toggleExam()">توقف آزمون</button><button class="btn outline" onclick="exportCsv()">خروجی اکسل (CSV)</button><button class="btn danger" onclick="clearResults()">پاک کردن نتایج</button></div>
+  <h3 style="margin-top:22px">داشبورد آماری رشته‌ها</h3>
+  <div class="grid" id="stats"></div>
+  <div id="courseChart" class="stat" style="margin-top:12px"></div>
+  <h3 style="margin-top:22px">جست‌وجو و فیلتر دانش‌آموزان</h3>
+  <div class="admin-tools no-print">
+   <input id="studentSearch" placeholder="جست‌وجوی نام دانش‌آموز..." oninput="applyStudentFilters()">
+   <select id="gradeFilter" onchange="applyStudentFilters()"><option value="">همه پایه‌ها</option><option>هفتم</option><option>هشتم</option><option>نهم</option></select>
+   <input id="classFilter" placeholder="فیلتر کلاس (مثلاً ۷/۱)" oninput="applyStudentFilters()">
+   <select id="courseFilter" onchange="applyStudentFilters()"><option value="">همه رشته‌ها</option></select>
+  </div>
+  <div class="actions no-print">
+   <button class="btn outline" onclick="exportFilteredCsv()">خروجی اکسل فهرست فیلترشده</button>
+   <button class="btn outline" onclick="printCourseList()">چاپ فهرست رشته انتخابی</button>
+   <button class="btn outline" onclick="window.print()">چاپ گزارش فعلی</button>
+  </div>
+  <h3 style="margin-top:22px">فهرست ثبت‌نام‌ها <span id="visibleCount" class="pill"></span></h3>
+  <div class="print-title" style="display:none"><h2 id="printHeading">فهرست دانش‌آموزان</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>نام</th><th>پایه</th><th>کلاس</th><th>رشته‌های انتخابی</th><th class="no-print">عملیات</th></tr></thead><tbody id="studentRows"></tbody></table></div>
+ </section>
+ <footer>مدرسه شهید توپچی | مسابقات قرآن، عترت و نماز</footer>
+</main>
+<script>
+const SUPABASE_URL = 'https://tpubxwisejotqlwoxtnd.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Vq9HpYgVhljXt34G9XS3MA_uaYvAEBY';
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const fields = [
+ {q:"به کدام فعالیت بیشتر علاقه داری؟",a:["خواندن قرآن با صوت زیبا","مداحی و اجرای مذهبی","مطالعه و بررسی موضوعات دینی","حفظ آیات و دعاها"]},
+ {q:"کدام کار برایت لذت‌بخش‌تر است؟",a:["تمرین تلاوت و ترتیل","یادگیری احکام و پاسخ به پرسش‌ها","خواندن متن‌های نهج‌البلاغه و صحیفه","تمرین اذان یا تقلید از قاریان"]},
+ {q:"در کدام زمینه دوست داری بیشتر پیشرفت کنی؟",a:["صوت، لحن و قرائت","دانش دینی و پژوهش","بیان و اجرای مذهبی","حفظ و به خاطر سپردن"]},
+ {q:"اگر در مسابقه‌ای شرکت کنی، کدام موضوع برایت جذاب‌تر است؟",a:["قرائت، ترتیل یا تقلیدخوانی","احکام یا تفسیر قرآن","نهج‌البلاغه یا صحیفه سجادیه","مداحی یا اذان"]},
+ {q:"معمولاً کدام فعالیت را با علاقه دنبال می‌کنی؟",a:["گوش دادن و تمرین تلاوت قرآن","مطالعه مطالب دینی و پرسشگری","تمرین مداحی و اجرا","حفظ آیات، احادیث و دعاها"]}
+];
+const categories = {
+ "مداحی":"آوایی","اذان":"آوایی","تقلیدخوانی قرآن کریم":"آوایی","ترتیل‌خوانی قرآن کریم":"آوایی","حفظ قرآن کریم":"آوایی",
+ "احکام":"پژوهشی","نهج‌البلاغه":"پژوهشی","گفتمان مهدوی":"پژوهشی","تفسیر قرآن":"پژوهشی","صحیفه سجادیه":"پژوهشی"
+};
+let answers={}, student={}, currentSuggestions=[], examActive=true;
+function show(id){document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+function errorText(e){return e?.message || 'خطای نامشخص؛ اتصال اینترنت و تنظیمات را بررسی کنید.'}
+async function refreshExamStatus(){
+ const {data,error}=await db.from('contest_settings').select('exam_active').eq('singleton',true).single();
+ if(error) throw error; examActive=!!data.exam_active; return examActive;
+}
+async function startQuiz(){
+ const n=document.getElementById('studentName').value.trim(),g=document.getElementById('grade').value,c=document.getElementById('className').value.trim();
+ if(!n||!g||!c){alert('لطفاً نام و نام خانوادگی، پایه و کلاس را کامل کنید.');return}
+ try{if(!await refreshExamStatus()){alert('ثبت‌نام آزمون در حال حاضر متوقف شده است.');return}}
+ catch(e){alert('دریافت وضعیت آزمون ممکن نشد: '+errorText(e));return}
+ student={name:n,grade:g,className:c};answers={};
+ document.getElementById('questions').innerHTML=fields.map((f,i)=>`<div class="card" style="box-shadow:none;background:#fcfcf8"><h3>${i+1}. ${f.q}</h3>${f.a.map((a,j)=>`<label><input style="width:auto;margin-left:8px" type="radio" name="q${i}" value="${j}" onchange="answers[${i}]=${j}"> ${a}</label>`).join('')}</div>`).join('');
+ show('quiz');
+}
+function scoreAnswers(){
+ const scores={"مداحی":0,"اذان":0,"تقلیدخوانی قرآن کریم":0,"ترتیل‌خوانی قرآن کریم":0,"حفظ قرآن کریم":0,"احکام":0,"نهج‌البلاغه":0,"گفتمان مهدوی":0,"تفسیر قرآن":0,"صحیفه سجادیه":0};
+ const map=[
+  [["ترتیل‌خوانی قرآن کریم",2],["مداحی",1],["تفسیر قرآن",1],["حفظ قرآن کریم",2]],
+  [["ترتیل‌خوانی قرآن کریم",2],["احکام",2],["نهج‌البلاغه",1],["اذان",2]],
+  [["تقلیدخوانی قرآن کریم",2],["تفسیر قرآن",2],["مداحی",2],["حفظ قرآن کریم",1]],
+  [["تقلیدخوانی قرآن کریم",2],["احکام",2],["صحیفه سجادیه",2],["اذان",2]],
+  [["ترتیل‌خوانی قرآن کریم",2],["گفتمان مهدوی",2],["مداحی",2],["حفظ قرآن کریم",2]]
+ ];
+ Object.keys(answers).forEach(i=>{const item=map[+i][answers[i]];scores[item[0]]+=item[1]});
+ return Object.entries(scores).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+}
+function showResults(){
+ if(Object.keys(answers).length!==fields.length){alert('لطفاً به همه پرسش‌ها پاسخ بدهید.');return}
+ currentSuggestions=scoreAnswers().slice(0,3);
+ const allChoices=[...currentSuggestions,...Object.keys(categories).filter(x=>!currentSuggestions.includes(x))];
+ document.getElementById('suggestions').innerHTML=currentSuggestions.map((s,i)=>`<div class="stat" style="margin:8px 0"><b>${['اولویت اول','اولویت دوم','اولویت سوم'][i]}</b>${s} <span class="pill">${categories[s]}</span></div>`).join('');
+ document.getElementById('finalChoices').innerHTML=allChoices.map((s,i)=>`<label class="stat" style="display:flex;align-items:center;gap:9px;cursor:pointer"><input type="checkbox" name="finalChoices" value="${s}" style="width:auto" onchange="updateChoiceCount()"><span>${s} <span class="pill">${categories[s]}</span></span></label>`).join('');
+ updateChoiceCount();
+ show('results');
+}
+function getSelectedChoices(){return [...document.querySelectorAll('input[name="finalChoices"]:checked')].map(x=>x.value)}
+function updateChoiceCount(){
+ const selected=getSelectedChoices();
+ document.getElementById('choiceCount').textContent=`${selected.length} از ۴ رشته انتخاب شده`;
+ document.querySelectorAll('input[name="finalChoices"]').forEach(x=>{x.disabled=!x.checked&&selected.length>=4});
+}
+async function submitStudent(){
+ const choices=getSelectedChoices();
+ if(!choices.length){alert('لطفاً دست‌کم یک رشته را انتخاب کنید.');return}
+ if(choices.length>4){alert('حداکثر چهار رشته قابل انتخاب است.');return}
+ const payload={full_name:student.name,grade:student.grade,class_name:student.className,answers:{...answers},suggestions:currentSuggestions,final_choices:choices,final_choice:choices[0]};
+ const {error}=await db.from('student_submissions').insert(payload);
+ if(error){if(error.code==='23505')alert('با این نام، پایه و کلاس قبلاً ثبت‌نام انجام شده است.');else if(error.code==='42501')alert('ثبت‌نام در حال حاضر مجاز نیست یا آزمون متوقف شده است.');else alert('ثبت اطلاعات انجام نشد: '+errorText(error));return}
+ document.getElementById('doneText').textContent=`${student.name} عزیز، رشته‌های ${choices.map(x=>'«'+x+'»').join('، ')} برای شما ثبت شد.`;show('done');
+}
+async function adminLogin(){
+ const email=document.getElementById('username').value.trim(),password=document.getElementById('password').value;
+ if(!email||!password){document.getElementById('loginMessage').textContent='ایمیل و رمز عبور را وارد کنید.';return}
+ const {error}=await db.auth.signInWithPassword({email,password});
+ if(error){document.getElementById('loginMessage').textContent='ورود انجام نشد: '+errorText(error);return}
+ document.getElementById('loginMessage').textContent='';await renderAdmin();show('admin');
+}
+function togglePasswordPanel(force){
+ const panel=document.getElementById('passwordPanel');
+ const shouldShow=typeof force==='boolean'?force:panel.classList.contains('hidden');
+ panel.classList.toggle('hidden',!shouldShow);
+ if(shouldShow) document.getElementById('currentAdminPassword').focus();
+}
+async function changeAdminPassword(){
+ const current=document.getElementById('currentAdminPassword').value;
+ const next=document.getElementById('newAdminPassword').value;
+ const confirmNext=document.getElementById('confirmAdminPassword').value;
+ const msg=document.getElementById('passwordMessage');
+ msg.textContent='';
+ if(!current||!next||!confirmNext){msg.textContent='لطفاً هر سه کادر را کامل کنید.';return}
+ if(next.length<8){msg.textContent='رمز جدید باید دست‌کم ۸ نویسه داشته باشد.';return}
+ if(next!==confirmNext){msg.textContent='رمز جدید و تکرار آن یکسان نیستند.';return}
+ if(current===next){msg.textContent='رمز جدید باید با رمز فعلی متفاوت باشد.';return}
+ const {data:{user},error:userError}=await db.auth.getUser();
+ if(userError||!user?.email){msg.textContent='نشست مدیر معتبر نیست؛ دوباره وارد پنل شوید.';return}
+ const {error:verifyError}=await db.auth.signInWithPassword({email:user.email,password:current});
+ if(verifyError){msg.textContent='رمز فعلی صحیح نیست؛ تغییری انجام نشد.';return}
+ const {error:updateError}=await db.auth.updateUser({password:next});
+ if(updateError){msg.textContent='تغییر رمز انجام نشد: '+errorText(updateError);return}
+ document.getElementById('currentAdminPassword').value='';
+ document.getElementById('newAdminPassword').value='';
+ document.getElementById('confirmAdminPassword').value='';
+ msg.textContent='رمز عبور با موفقیت تغییر کرد.';
+}
+async function logout(){await db.auth.signOut();show('home')}
+async function toggleExam(){
+ const {data,error:readError}=await db.from('contest_settings').select('exam_active').eq('singleton',true).single();
+ if(readError){alert('خواندن وضعیت آزمون ممکن نشد: '+errorText(readError));return}
+ const {error}=await db.from('contest_settings').update({exam_active:!data.exam_active,updated_at:new Date().toISOString()}).eq('singleton',true);
+ if(error){alert('تغییر وضعیت انجام نشد: '+errorText(error));return} await renderAdmin();
+}
+function recordChoices(r){
+ return (Array.isArray(r.final_choices)&&r.final_choices.length?r.final_choices:[r.final_choice]).filter(Boolean);
+}
+async function renderAdmin(){
+ const {data:rec,error}=await db.from('student_submissions').select('*').order('created_at',{ascending:false});
+ if(error){alert('دریافت نتایج ممکن نشد: '+errorText(error));return}
+ const {data:settings,error:settingsError}=await db.from('contest_settings').select('exam_active').eq('singleton',true).single();
+ if(settingsError){alert('دریافت وضعیت آزمون ممکن نشد: '+errorText(settingsError));return}
+ examActive=!!settings.exam_active;
+ document.getElementById('totalCount').textContent=rec.length;
+ document.getElementById('statusText').textContent=examActive?'فعال':'متوقف';
+ document.getElementById('stopBtn').textContent=examActive?'توقف آزمون':'فعال‌سازی مجدد آزمون';
+ document.getElementById('stopBtn').className='btn '+(examActive?'danger':'primary');
+ window.adminRecords=rec;
+ const counts=Object.keys(categories).map(s=>[s,rec.filter(r=>recordChoices(r).includes(s)).length]);
+ document.getElementById('stats').innerHTML=`
+  <div class="stat"><b>${rec.length}</b><span class="muted">کل ثبت‌نام‌ها</span></div>
+  <div class="stat"><b>${rec.filter(r=>r.grade==='هفتم').length}</b><span class="muted">پایه هفتم</span></div>
+  <div class="stat"><b>${rec.filter(r=>r.grade==='هشتم').length}</b><span class="muted">پایه هشتم</span></div>
+  <div class="stat"><b>${rec.filter(r=>r.grade==='نهم').length}</b><span class="muted">پایه نهم</span></div>`;
+ const max=Math.max(1,...counts.map(x=>x[1]));
+ document.getElementById('courseChart').innerHTML='<h3>تعداد انتخاب هر رشته</h3>'+counts.map(([name,n])=>`<div class="chart-row"><span>${esc(name)}</span><div class="chart-track"><div class="chart-fill" style="width:${(n/max)*100}%"></div></div><b>${n}</b></div>`).join('');
+ const course=document.getElementById('courseFilter');
+ const current=course.value;
+ course.innerHTML='<option value="">همه رشته‌ها</option>'+Object.keys(categories).map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
+ course.value=current;
+ applyStudentFilters();
+}
+function getFilteredRecords(){
+ const rec=window.adminRecords||[];
+ const q=(document.getElementById('studentSearch')?.value||'').trim().toLocaleLowerCase('fa');
+ const grade=document.getElementById('gradeFilter')?.value||'';
+ const cls=(document.getElementById('classFilter')?.value||'').trim().toLocaleLowerCase('fa');
+ const course=document.getElementById('courseFilter')?.value||'';
+ return rec.filter(r=>{
+  const choices=recordChoices(r);
+  return (!q||String(r.full_name||'').toLocaleLowerCase('fa').includes(q))
+   &&(!grade||r.grade===grade)
+   &&(!cls||String(r.class_name||'').toLocaleLowerCase('fa').includes(cls))
+   &&(!course||choices.includes(course));
+ });
+}
+function applyStudentFilters(){
+ const rec=getFilteredRecords();
+ document.getElementById('visibleCount').textContent=rec.length+' نفر';
+ document.getElementById('studentRows').innerHTML=rec.map(r=>`<tr><td>${esc(r.full_name||'')}</td><td>${esc(r.grade||'')}</td><td>${esc(r.class_name||'')}</td><td>${esc(recordChoices(r).join('، '))}</td><td class="no-print"><button class="btn outline" onclick="editRecord('${r.id}','${encodeURIComponent(recordChoices(r).join('، '))}')">اصلاح</button></td></tr>`).join('')||'<tr><td colspan="5">دانش‌آموزی با این فیلتر پیدا نشد.</td></tr>';
+}
+function makeCsv(records,filename){
+ const rows=[['نام و نام خانوادگی','پایه','کلاس','رشته‌های انتخابی','پیشنهادها','تاریخ ثبت'],...records.map(r=>[r.full_name,r.grade,r.class_name,recordChoices(r).join(' | '),(r.suggestions||[]).join(' | '),r.created_at?new Date(r.created_at).toLocaleString('fa-IR'):''])];
+ const csv='\ufeff'+rows.map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\r\n');
+ const a=document.createElement('a'),url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+ a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+// اگر مدیر از قبل وارد شده باشد، وضعیت ورود در همان مرورگر حفظ می‌شود.
+db.auth.getSession().then(({data})=>{if(data.session) {document.getElementById('loginMessage').textContent='حساب مدیر در این مرورگر وارد شده است.';}});
+</script>
+</body>
+</html>
