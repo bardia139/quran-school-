@@ -32,12 +32,12 @@ begin
   end if;
 
   -- هم‌زمانی ثبت‌نام‌ها را کنترل می‌کند تا ظرفیت از ۷۵۰ عبور نکند.
-  perform pg_advisory_xact_lock(hashtext('student_submissions_capacity_750'));
+  perform pg_advisory_xact_lock(hashtext('student_submissions_capacity_800'));
 
   select count(*) into current_total
   from public.student_submissions;
 
-  if current_total >= 750 then
+  if current_total >= 800 then
     raise exception 'ظرفیت ثبت‌نام ۷۵۰ نفر تکمیل شده است'
       using errcode = '23514';
   end if;
