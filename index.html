@@ -235,9 +235,9 @@ async function refreshExamStatus(){
  if(error) throw error; examActive=!!data.exam_active; return examActive;
 }
 async function startQuiz(){
- const n=document.getElementById('studentName').value.trim(),nationalId=document.getElementById('nationalId').value.replace(/\\D/g,''),g=document.getElementById('grade').value,c=document.getElementById('className').value.trim();
+ const n=document.getElementById('studentName').value.trim(),nationalId=document.getElementById('nationalId').value.replace(/\D/g,''),g=document.getElementById('grade').value,c=document.getElementById('className').value.trim();
  if(!n||!g||!c||!nationalId){alert('لطفاً نام، کد ملی، پایه و کلاس را کامل کنید.');return}
- if(!/^\\d{10}$/.test(nationalId)){alert('کد ملی باید دقیقاً ۱۰ رقم باشد.');return}
+ if(!/^\d{10}$/.test(nationalId)){alert('کد ملی باید دقیقاً ۱۰ رقم باشد.');return}
  try{
   if(!await refreshExamStatus()){alert('ثبت‌نام آزمون در حال حاضر متوقف شده است.');return}
   const {count,error:countError}=await db.from('student_submissions').select('id',{count:'exact',head:true});
