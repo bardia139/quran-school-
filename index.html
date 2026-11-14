@@ -242,7 +242,7 @@ async function startQuiz(){
   if(!await refreshExamStatus()){alert('ثبت‌نام آزمون در حال حاضر متوقف شده است.');return}
   const {count,error:countError}=await db.from('student_submissions').select('id',{count:'exact',head:true});
   if(countError)throw countError;
-  if((count||0)>=750){alert('ظرفیت ثبت‌نام تکمیل شده است. ظرفیت سامانه ۷۵۰ دانش‌آموز است.');return}
+  if((count||0)>=800){alert('ظرفیت ثبت‌نام تکمیل شده است. ظرفیت سامانه ۷۵۰ دانش‌آموز است.');return}
   const {data:duplicate,error:duplicateError}=await db.from('student_submissions').select('id').eq('national_id',nationalId).limit(1);
   if(duplicateError)throw duplicateError;
   if(duplicate?.length){alert('با این کد ملی قبلاً ثبت‌نام انجام شده است. هر دانش‌آموز فقط یک بار می‌تواند ثبت‌نام کند.');return}
@@ -284,7 +284,7 @@ async function submitStudent(){
  if(choices.length>4){alert('حداکثر چهار رشته قابل انتخاب است.');return}
  const {count,error:countError}=await db.from('student_submissions').select('id',{count:'exact',head:true});
  if(countError){alert('بررسی ظرفیت انجام نشد: '+errorText(countError));return}
- if((count||0)>=750){alert('ظرفیت ثبت‌نام تکمیل شده است. ظرفیت سامانه ۷۵۰ دانش‌آموز است.');return}
+ if((count||0)>=800){alert('ظرفیت ثبت‌نام تکمیل شده است. ظرفیت سامانه ۷۵۰ دانش‌آموز است.');return}
  const payload={full_name:student.name,national_id:student.nationalId,grade:student.grade,class_name:student.className,answers:{...answers},suggestions:currentSuggestions,final_choices:choices,final_choice:choices[0]};
  const {error}=await db.from('student_submissions').insert(payload);
  if(error){if(error.code==='23505')alert('این کد ملی قبلاً ثبت شده است یا ثبت‌نام هم‌زمان ظرفیت را تکمیل کرده است.');else if(error.code==='42501')alert('ثبت‌نام در حال حاضر مجاز نیست یا آزمون متوقف شده است.');else if(error.code==='23514')alert('ظرفیت ثبت‌نام ۷۵۰ نفر تکمیل شده یا کد ملی معتبر نیست.');else alert('ثبت اطلاعات انجام نشد: '+errorText(error));return}
