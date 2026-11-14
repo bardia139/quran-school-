@@ -73,6 +73,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
   <p class="muted">لطفاً اطلاعات را با دقت وارد کنید.</p>
   <div class="grid">
    <div class="field"><label>نام و نام خانوادگی</label><input id="studentName" placeholder="مثلاً علی رضایی"></div>
+   <div class="field"><label>کد ملی (۱۰ رقم)</label><input id="nationalId" inputmode="numeric" maxlength="10" autocomplete="off" placeholder="کد ملی دانش‌آموز"></div>
    <div class="field"><label>پایه تحصیلی</label><select id="grade"><option value="">انتخاب پایه</option><option>هفتم</option><option>هشتم</option><option>نهم</option></select></div>
    <div class="field"><label>کلاس</label><input id="className" placeholder="مثلاً ۷/۱"></div>
   </div>
@@ -234,11 +235,19 @@ async function refreshExamStatus(){
  if(error) throw error; examActive=!!data.exam_active; return examActive;
 }
 async function startQuiz(){
- const n=document.getElementById('studentName').value.trim(),g=document.getElementById('grade').value,c=document.getElementById('className').value.trim();
- if(!n||!g||!c){alert('لطفاً نام و نام خانوادگی، پایه و کلاس را کامل کنید.');return}
- try{if(!await refreshExamStatus()){alert('ثبت‌نام آزمون در حال حاضر متوقف شده است.');return}}
- catch(e){alert('دریافت وضعیت آزمون ممکن نشد: '+errorText(e));return}
- student={name:n,grade:g,className:c};answers={};
+ const n=document.getElementById('studentName').value.trim(),nationalId=document.getElementById('nationalId').value.replace(/\\D/g,''),g=document.getElementById('grade').value,c=document.getElementById('className').value.trim();
+ if(!n||!g||!c||!nationalId){alert('لطفاً نام، کد ملی، پایه و کلاس را کامل کنید.');return}
+ if(!/^\\d{10}$/.test(nationalId)){alert('کد ملی باید دقیقاً ۱۰ رقم باشد.');return}
+ try{
+  if(!await refreshExamStatus()){alert('ثبت‌نام آزمون در حال حاضر متوقف شده است.');return}
+  const {count,error:countError}=await db.from('student_submissions').select('id',{count:'exact',head:true});
+  if(countError)throw countError;
+  if((count||0)>=750){alert('ظرفیت ثبت‌نام تکمیل شده است. ظرفیت سامانه ۷۵۰ دانش‌آموز است.');return}
+  const {data:duplicate,error:duplicateError}=await db.from('student_submissions').select('id').eq('national_id',nationalId).limit(1);
+  if(duplicateError)throw duplicateError;
+  if(duplicate?.length){alert('با این کد ملی قبلاً ثبت‌نام انجام شده است. هر دانش‌آموز فقط یک بار می‌تواند ثبت‌نام کند.');return}
+ }catch(e){alert('بررسی ظرفیت یا کد ملی انجام نشد: '+errorText(e));return}
+ student={name:n,nationalId,grade:g,className:c};answers={};
  document.getElementById('questions').innerHTML=fields.map((f,i)=>`<div class="card" style="box-shadow:none;background:#fcfcf8"><h3>${i+1}. ${f.q}</h3>${f.a.map((a,j)=>`<label><input style="width:auto;margin-left:8px" type="radio" name="q${i}" value="${j}" onchange="answers[${i}]=${j}"> ${a}</label>`).join('')}</div>`).join('');
  show('quiz');
 }
@@ -273,9 +282,12 @@ async function submitStudent(){
  const choices=getSelectedChoices();
  if(!choices.length){alert('لطفاً دست‌کم یک رشته را انتخاب کنید.');return}
  if(choices.length>4){alert('حداکثر چهار رشته قابل انتخاب است.');return}
- const payload={full_name:student.name,grade:student.grade,class_name:student.className,answers:{...answers},suggestions:currentSuggestions,final_choices:choices,final_choice:choices[0]};
+ const {count,error:countError}=await db.from('student_submissions').select('id',{count:'exact',head:true});
+ if(countError){alert('بررسی ظرفیت انجام نشد: '+errorText(countError));return}
+ if((count||0)>=750){alert('ظرفیت ثبت‌نام تکمیل شده است. ظرفیت سامانه ۷۵۰ دانش‌آموز است.');return}
+ const payload={full_name:student.name,national_id:student.nationalId,grade:student.grade,class_name:student.className,answers:{...answers},suggestions:currentSuggestions,final_choices:choices,final_choice:choices[0]};
  const {error}=await db.from('student_submissions').insert(payload);
- if(error){if(error.code==='23505')alert('با این نام، پایه و کلاس قبلاً ثبت‌نام انجام شده است.');else if(error.code==='42501')alert('ثبت‌نام در حال حاضر مجاز نیست یا آزمون متوقف شده است.');else alert('ثبت اطلاعات انجام نشد: '+errorText(error));return}
+ if(error){if(error.code==='23505')alert('این کد ملی قبلاً ثبت شده است یا ثبت‌نام هم‌زمان ظرفیت را تکمیل کرده است.');else if(error.code==='42501')alert('ثبت‌نام در حال حاضر مجاز نیست یا آزمون متوقف شده است.');else if(error.code==='23514')alert('ظرفیت ثبت‌نام ۷۵۰ نفر تکمیل شده یا کد ملی معتبر نیست.');else alert('ثبت اطلاعات انجام نشد: '+errorText(error));return}
  document.getElementById('doneText').textContent=`${student.name} عزیز، رشته‌های ${choices.map(x=>'«'+x+'»').join('، ')} برای شما ثبت شد.`;show('done');
 }
 async function adminLogin(){
