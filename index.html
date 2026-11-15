@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>هدایت استعدادهای قرآنی | مدرسه شهید توپچی</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" onerror="this.onerror=null;this.src='https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js'"></script>
 <style>
 :root{--green:#123d2b;--green2:#1c6042;--gold:#d9b85f;--cream:#fbf8ef;--ink:#183528;--muted:#718078;--line:#e7e2d4;--white:#fff}
 *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.9}
@@ -215,7 +215,16 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
 <script>
 const SUPABASE_URL = 'https://tpubxwisejotqlwoxtnd.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Vq9HpYgVhljXt34G9XS3MA_uaYvAEBY';
-const db = window.supabase?.createClient ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY) : null;
+let db = null;
+try {
+ if (window.supabase && typeof window.supabase.createClient === 'function') {
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+ } else {
+  console.error('Supabase SDK did not expose createClient; public navigation remains available.');
+ }
+} catch (initError) {
+ console.error('Supabase initialization failed:', initError);
+}
 const fields = [
  {q:"به کدام فعالیت بیشتر علاقه داری؟",a:["خواندن قرآن با صوت زیبا","مداحی و اجرای مذهبی","مطالعه و بررسی موضوعات دینی","حفظ آیات و دعاها"]},
  {q:"کدام کار برایت لذت‌بخش‌تر است؟",a:["تمرین تلاوت و ترتیل","یادگیری احکام و پاسخ به پرسش‌ها","خواندن متن‌های نهج‌البلاغه و صحیفه","تمرین اذان یا تقلید از قاریان"]},
