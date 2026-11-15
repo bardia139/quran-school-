@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>هدایت استعدادهای قرآنی | مدرسه شهید توپچی</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="this.onerror=null;this.src='https://unpkg.com/@supabase/supabase-js@2'"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 :root{--green:#123d2b;--green2:#1c6042;--gold:#d9b85f;--cream:#fbf8ef;--ink:#183528;--muted:#718078;--line:#e7e2d4;--white:#fff}
 *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.9}
@@ -539,7 +539,7 @@ async function ownerLoadLogs(){
 }
 
 // اگر مدیر از قبل وارد شده باشد، وضعیت ورود در همان مرورگر حفظ می‌شود.
-db.auth.getSession().then(({data})=>{if(data.session) {document.getElementById('loginMessage').textContent='حساب مدیر در این مرورگر وارد شده است.';}});
+if(db?.auth){db.auth.getSession().then(({data})=>{if(data.session) {document.getElementById('loginMessage').textContent='حساب مدیر در این مرورگر وارد شده است.';}}).catch(e=>console.error('Supabase session check failed:',e));}else{console.error('Supabase library failed to load; database actions are unavailable.');}
 </script>
 </body>
 </html>
